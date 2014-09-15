@@ -91,7 +91,7 @@ def main():
     args = sys.argv
     args.pop(0)
     if len(args) == 0:
-        print("Please give one arguments")
+        print("try alarm --help")
     elif len(args) == 1 and args[0] == "-h" or args[0] == "--help":
         print("usage: %s [-h] [-v]" % __all__)
         print("             [-s] <time> <song>\n")

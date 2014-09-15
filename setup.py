@@ -29,17 +29,17 @@ except ImportError:
 from alarm import __version__, __email__
 
 setup(
-name="alarm",
-packages=["alarm"],
-scripts=["bin/alarm"],
-version=__version__,
-description="CLI Alarm Clock",
-keywords=["alarm", "clock", "CLI"],
-author="dslackw",
-author_email=__email__,
-url="https://github.com/dslackw/alarm",
-package_data={"": ["LICENSE", "README.rst", "CHANGELOG"]},
-classifiers=[
-"Development Status :: 3 - Alpha"
-long_description=open("README.rst").read()
+    name="alarm",
+    packages=["alarm"],
+    scripts=["bin/alarm"],
+    version=__version__,
+    description="CLI Alarm Clock",
+    keywords=["alarm", "clock", "CLI"],
+    author="dslackw",
+    author_email=__email__,
+    url="https://github.com/dslackw/alarm",
+    package_data={"": ["LICENSE", "README.rst", "CHANGELOG"]},
+    classifiers=[
+        "Development Status :: 3 - Alpha"],
+    long_description=open("README.rst").read()
 )
