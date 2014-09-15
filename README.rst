@@ -1,3 +1,11 @@
+.. image:: https://badge.fury.io/py/alarm.png
+    :target: http://badge.fury.io/py/alarm
+.. image:: https://pypip.in/d/alarm/badge.png
+    :target: https://pypi.python.org/pypi/alarm
+.. image:: https://pypip.in/license/alarm/badge.png
+    :target: https://pypi.python.org/pypi/alarm
+
+
 CLI Alarm Clock
 ===============
 
