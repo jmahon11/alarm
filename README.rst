@@ -5,10 +5,26 @@ Alarm is CLI utility written in Python language.
 
 Requirements
 ------------
-    
+
+.. code-block:: bash
+
     - Python 2 or 3
     - Mplayer
 
+
+Installation
+------------
+
+Using `pip <https://pip.pypa.io/en/latest/>`_ :
+
+.. code-block:: bash
+
+    $ pip install slpkg
+
+    uninstall:
+
+    $ pip uninstall slpkg
+   
 
 Command Line Tool Usage
 -----------------------

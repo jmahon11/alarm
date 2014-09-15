@@ -41,7 +41,7 @@ def start_ALARM(ALARM, SONG):
     http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
     '''
     try:
-        ALARM = ALARM.replace(":", " ").split()
+        ALARM = ALARM.replace(":", " ").split() # split items
         for item in ALARM:
             if len(item) > 2 or len(item) == 1:
                 print("Setting time pattern is 'HH:MM:SS'")
@@ -67,7 +67,7 @@ def start_ALARM(ALARM, SONG):
     if not os.path.isfile(SONG):
         print("Error: the file does not exist")
         sys.exit()
-    ALARM = ":".join(ALARM)
+    ALARM = ":".join(ALARM) # reset begin format
     while True:
         try:
             os.system("clear")
