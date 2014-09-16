@@ -27,11 +27,11 @@ Using `pip <https://pip.pypa.io/en/latest/>`_ :
 
 .. code-block:: bash
 
-    $ pip install slpkg
+    $ pip install alarm
 
     uninstall:
 
-    $ pip uninstall slpkg
+    $ pip uninstall alarm
    
 
 Command Line Tool Usage
