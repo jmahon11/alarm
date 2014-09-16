@@ -43,7 +43,7 @@ setup(
         "Development Status :: 3 - Alpha",
         "Classifier: Development Status :: 3 - Alpha",
         "Classifier: Environment :: Console",
-        "Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
         "Classifier: Operating System :: POSIX :: Linux",
         "Classifier: Operating System :: Unix",
         "Classifier: Programming Language :: Python",
