@@ -81,7 +81,10 @@ class ALARM(object):
         if not os.path.isfile(self.song):
             print("Error: the file does not exist")
             RUN_ALARM = False
-        alarm_day_name = calendar.day_name[calendar.weekday(now.year, now.month, int(self.alarm_day))]
+        try:
+            alarm_day_name = calendar.day_name[calendar.weekday(now.year, now.month, int(self.alarm_day))]
+        except ValueError:
+            pass
         self.alarm_time.insert(0, self.alarm_day)
         self.alarm_time = ":".join(self.alarm_time) # reset begin format
         if RUN_ALARM:
