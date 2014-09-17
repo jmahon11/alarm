@@ -45,8 +45,6 @@ class ALARM(object):
         self.song = song
         self.alarm_hour = self.alarm_time[0]
         self.alarm_minutes = self.alarm_time[1]
-        self.alarm_seconds = self.alarm_time[2]
-    
     def start(self):
         '''
             All the work going on here. To the Authority the 
@@ -63,9 +61,10 @@ class ALARM(object):
                 print("Error: day out of range")
                 RUN_ALARM = False
             for item in self.alarm_time:
-                if len(item) > 2 or len(item) == 1:
-                    print("Usage 'HH:MM:SS'")
+                if len(self.alarm_time) > 2 or len(item) > 2 or len(item) == 1:
+                    print("Usage 'HH:MM'")
                     RUN_ALARM = False 
+                    break
             if int(self.alarm_hour) in range(0, 24):
                 pass
             else:
@@ -76,13 +75,8 @@ class ALARM(object):
             else:
                 print("Error: minutes out of range")
                 RUN_ALARM = False
-            if int(self.alarm_seconds) in range(0, 60):
-                pass
-            else:
-                print("Error: seconds out of range")
-                RUN_ALARM = False
         except ValueError:
-            print("Usage 'HH:MM:SS'")
+            print("Usage 'HH:MM'")
             RUN_ALARM = False
         if not os.path.isfile(self.song):
             print("Error: the file does not exist")
@@ -100,16 +94,16 @@ class ALARM(object):
                   61-len(alarm_day_name + self.alarm_time[3:])) + "|")
             print("| Sound file : %s" % self.song + " " * (64-len(self.song)) + "|")
             print("| Time : " + " " * 70 + "|")
-            print("| Countdown :" + " " * 66 + "|")
             print("+" + "=" * 78 + "+")
             while RUN_ALARM:
                 try:
                     start_time = time.strftime("%d:%H:%M:%S")
-                    remaining = self.countdown(start_time[3:-6], start_time[6:-3], start_time[9:])
-                    self.position(6, 10, start_time[3:])
-                    self.position(7, 15, remaining)
+                    self.position(6, 10, self.color(
+                         "green") + start_time[3:] + self.color("endc"))
                     time.sleep(1)
-                    if start_time == self.alarm_time:
+                    if start_time[:-3] == self.alarm_time:
+                        self.position(6, 10, self.color(
+                             "red") + start_time[3:-3] + self.color("endc") + " Wake Up !")
                         os.system("mplayer '%s'" % self.song)
                         RUN_ALARM = False
                 except KeyboardInterrupt:
@@ -124,26 +118,16 @@ class ALARM(object):
         sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (x, y, text))
         sys.stdout.flush()
 
-    def countdown(self, hour, minutes, seconds):
+    def color(self, color):
         '''
-            Countdown alarm is sum time before ring the bells :)
+            Print foreground colors 
         '''
-        sum_hour = abs(int(self.alarm_hour) - int(hour))
-        sum_min = abs(int(self.alarm_minutes) - int(minutes))
-        sec = int(seconds)
-        sec -= 1 
-        zero_hour, zero_min, zero_sec = "", "", ""
-        if len(str(sum_hour)) == 1:
-            zero_hour = "0"
-        if len(str(sum_min)) == 1:
-            zero_min = "0"
-        if len(str(sec)) == 1:
-            zero_sec = "0"
-        cd_hour = zero_hour + str(sum_hour)
-        cd_min = zero_min + str(sum_min)
-        cd_sec = zero_sec + str(sec)
-        remaining = ("%s:%s:%s" % (cd_hour, cd_min, cd_sec))
-        return remaining
+        paint = {
+                "red" : "\x1b[31m",
+                "green" : "\x1b[32m",
+                "endc" : "\x1b[0m"
+                }
+        return paint[color] 
 
 def main():
     args = sys.argv
@@ -156,8 +140,8 @@ def main():
         print("optional arguments")
         print("  -h, --help       show this help message and exit")
         print("  -v, --version    print version and exit")
-        print("  -s, --set        set alarm time and sound")
-        print("\nexample: alarm -s 21 06:00:00 /path/to/song.mp3") 
+        print("  -s, --set        set alarm day, time and sound")
+        print("\nexample: alarm -s 21 06:00 /path/to/song.mp3") 
     elif len(args) == 1 and args[0] == "-v" or args[0] == "--version":
         print("Version : %s" % __version__)
     elif len(args) == 4 and args[0] == "-s" or len(args) == 4 and args[0] == "--set":

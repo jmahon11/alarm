@@ -40,26 +40,26 @@ Command Line Tool Usage
 .. code-block:: bash
 
     usage: alarm [-h] [-v]
-                 [-s] <time> <song>
+                 [-s] <day> <alarm time> <song>
 
     optional arguments
       -h, --help       show this help message and exit
       -v, --version    print version and exit
-      -s, --set        set time and sound
+      -s, --set        set alarm day, time and sound
     
-    example: alarm -s 06:00:00 /path/to/song.mp3
+    example: alarm -s 17 06:00 /path/to/song.mp3
 
 
 Example:
 
 .. code-block:: bash
-    
-    $ alarm -s 05:40:12 /home/dslackw/Music/xristina.ogg
+   
+    $ alarm -s 17 22:05 ~/Music/xristina.ogg
 
     +==============================================================================+
     |                              CLI Alarm Clock                                 |
     +==============================================================================+
-    | Alarm set at : 05:49:12                                                      |
-    | Sound file in : /home/dslackw/Music/xristina.ogg                             |
-    | Time : 05:17:40                                                              |
+    | Alarm set at : Wednesday 22:05                                               |
+    | Sound file : /home/dslackw/Music/xristina.ogg                                |
+    | Time : 21:06:41                                                              |
     +==============================================================================+
