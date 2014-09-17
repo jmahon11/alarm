@@ -40,6 +40,13 @@ class ALARM(object):
         CLI Alarm Clock
     '''    
     def __init__(self, alarm_day, alarm_time, song):
+        
+        self.wakeup = ["__        __    _          _   _         _ ",
+                       "\ \      / /_ _| | _____  | | | |_ __   | |",
+                       " \ \ /\ / / _` | |/ / _ \ | | | | '_ \  | |",
+                       "  \ V  V / (_| |   <  __/ | |_| | |_) | |_|",
+                       "   \_/\_/ \__,_|_|\_\___|  \___/| .__/  (_)",
+                       "                                |_|\n"]
         self.RUN_ALARM = True
         self.alarm_day = alarm_day
         self.alarm_time = alarm_time.replace(":", " ").split() # split items
@@ -53,6 +60,7 @@ class ALARM(object):
             self.alarm_minutes = "00"
             self.alarm_time = [self.alarm_hour, self.alarm_minutes]
             self.RUN_ALARM = False
+    
     def start(self):
         '''
             All the work going on here. To the Authority the right day and time
@@ -111,6 +119,8 @@ class ALARM(object):
                     if start_time[:-3] == self.alarm_time:
                         self.position(6, 10, self.color(
                              "red") + start_time[3:-3] + self.color("endc") + " Wake Up !")
+                        for wake in self.wakeup:
+                            print wake
                         os.system("mplayer '%s'" % self.song)
                         self.RUN_ALARM = False
                 except KeyboardInterrupt:
