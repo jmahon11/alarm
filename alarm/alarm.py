@@ -47,7 +47,7 @@ class ALARM(object):
         try:
             self.alarm_hour = self.alarm_time[0]
             self.alarm_minutes = self.alarm_time[1]
-        except IndexError:
+        except IndexError: # if one value in list 
             print("Usage 'HH:MM'")
             self.alarm_hour = "00"
             self.alarm_minutes = "00"
@@ -56,10 +56,10 @@ class ALARM(object):
     def start(self):
         '''
             All the work going on here. To the Authority the 
-            right time format and finding the correct path of 
-            the file. The Application requires Mplayer to play
-            the alarm sound. Please read which sounds are supported 
-            in page : 
+            right day and time format and finding the correct 
+            path of the file. The Application requires Mplayer
+            to play the alarm sound. Please read which sounds 
+            are supported in page : 
             http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
         '''
         try:
@@ -70,8 +70,7 @@ class ALARM(object):
             for item in self.alarm_time:
                 if len(self.alarm_time) > 2 or len(item) > 2 or len(item) == 1:
                     print("Usage 'HH:MM'")
-                    self.RUN_ALARM = False 
-                    break
+                    sys.exit()
             if int(self.alarm_hour) in range(0, 24):
                 pass
             else:
