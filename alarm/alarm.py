@@ -40,11 +40,19 @@ class ALARM(object):
         CLI Alarm Clock
     '''    
     def __init__(self, alarm_day, alarm_time, song):
+        self.RUN_ALARM = True
         self.alarm_day = alarm_day
         self.alarm_time = alarm_time.replace(":", " ").split() # split items
         self.song = song
-        self.alarm_hour = self.alarm_time[0]
-        self.alarm_minutes = self.alarm_time[1]
+        try:
+            self.alarm_hour = self.alarm_time[0]
+            self.alarm_minutes = self.alarm_time[1]
+        except IndexError:
+            print("Usage 'HH:MM'")
+            self.alarm_hour = "00"
+            self.alarm_minutes = "00"
+            self.alarm_time = [self.alarm_hour, self.alarm_minutes]
+            self.RUN_ALARM = False
     def start(self):
         '''
             All the work going on here. To the Authority the 
@@ -54,40 +62,39 @@ class ALARM(object):
             in page : 
             http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
         '''
-        RUN_ALARM = True
         try:
             now = datetime.datetime.now()
             if int(self.alarm_day) > calendar.monthrange(now.year, now.month)[1] or int(self.alarm_day) < 1:
                 print("Error: day out of range")
-                RUN_ALARM = False
+                self.RUN_ALARM = False
             for item in self.alarm_time:
                 if len(self.alarm_time) > 2 or len(item) > 2 or len(item) == 1:
                     print("Usage 'HH:MM'")
-                    RUN_ALARM = False 
+                    self.RUN_ALARM = False 
                     break
             if int(self.alarm_hour) in range(0, 24):
                 pass
             else:
                 print("Error: hour out of range")
-                RUN_ALARM = False
+                self.RUN_ALARM = False
             if int(self.alarm_minutes) in range(0, 60):
                 pass
             else:
                 print("Error: minutes out of range")
-                RUN_ALARM = False
+                self.RUN_ALARM = False
         except ValueError:
             print("Usage 'HH:MM'")
-            RUN_ALARM = False
+            self.RUN_ALARM = False
         if not os.path.isfile(self.song):
             print("Error: the file does not exist")
-            RUN_ALARM = False
+            self.RUN_ALARM = False
         try:
             alarm_day_name = calendar.day_name[calendar.weekday(now.year, now.month, int(self.alarm_day))]
         except ValueError:
             pass
         self.alarm_time.insert(0, self.alarm_day)
         self.alarm_time = ":".join(self.alarm_time) # reset begin format
-        if RUN_ALARM:
+        if self.RUN_ALARM:
             os.system("clear")
             print("+" + "=" * 78 + "+")
             print("|" + " " * 30 + "CLI Alarm Clock" + " " * 33 + "|")
@@ -98,7 +105,7 @@ class ALARM(object):
             print("| Sound file : %s" % self.song + " " * (64-len(self.song)) + "|")
             print("| Time : " + " " * 70 + "|")
             print("+" + "=" * 78 + "+")
-            while RUN_ALARM:
+            while self.RUN_ALARM:
                 try:
                     start_time = time.strftime("%d:%H:%M:%S")
                     self.position(6, 10, self.color(
@@ -108,10 +115,10 @@ class ALARM(object):
                         self.position(6, 10, self.color(
                              "red") + start_time[3:-3] + self.color("endc") + " Wake Up !")
                         os.system("mplayer '%s'" % self.song)
-                        RUN_ALARM = False
+                        self.RUN_ALARM = False
                 except KeyboardInterrupt:
                     print("\nAlarm canceled!")
-                    RUN_ALARM = False
+                    self.RUN_ALARM = False
 
     def position(self, x, y, text):
         '''
