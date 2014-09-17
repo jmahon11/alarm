@@ -55,11 +55,9 @@ class ALARM(object):
             self.RUN_ALARM = False
     def start(self):
         '''
-            All the work going on here. To the Authority the 
-            right day and time format and finding the correct 
-            path of the file. The Application requires Mplayer
-            to play the alarm sound. Please read which sounds 
-            are supported in page : 
+            All the work going on here. To the Authority the right day and time
+            format and finding the correct path of the file. The Application requires
+            Mplayer to play the alarm sound. Please read which sounds are supported in page: 
             http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
         '''
         try:
