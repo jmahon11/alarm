@@ -63,3 +63,37 @@ Example:
     | Sound file : /home/dslackw/Music/xristina.ogg                                |
     | Time : 21:06:41                                                              |
     +==============================================================================+
+
+
+
+    +==============================================================================+
+    |                              CLI Alarm Clock                                 |
+    +==============================================================================+
+    | Alarm set at : Wednesday 22:05                                               |
+    | Sound file : /home/dslackw/Music/xristina.ogg                                |
+    | Time : 22:05 Wake Up !                                                       |
+    +==============================================================================+
+    __        __    _          _   _         _ 
+    \ \      / /_ _| | _____  | | | |_ __   | |
+     \ \ /\ / / _` | |/ / _ \ | | | | '_ \  | |
+      \ V  V / (_| |   <  __/ | |_| | |_) | |_|
+       \_/\_/ \__,_|_|\_\___|  \___/| .__/  (_)
+                                    |_|
+
+    MPlayer 1.1-4.8.2 (C) 2000-2012 MPlayer Team
+    Playing /home/dslackw/Music/xristina.ogg.
+    libavformat version 54.6.100 (internal)
+    libavformat file format detected.
+    [lavf] stream 0: audio (vorbis), -aid 0, -alang eng
+    Load subtitles in /home/dslackw/Music/
+    ==========================================================================
+    Opening audio decoder: [ffmpeg] FFmpeg/libavcodec audio decoders
+    libavcodec version 54.23.100 (internal)
+    AUDIO: 44100 Hz, 2 ch, s16le, 0.0 kbit/0.00% (ratio: 0->176400)
+    Selected audio codec: [ffvorbis] afm: ffmpeg (FFmpeg Vorbis)
+    ==========================================================================
+    [AO OSS] audio_setup: Can't open audio device /dev/dsp: No such file or directory
+    AO: [alsa] 48000Hz 2ch s16le (2 bytes per sample)
+    Video: no video
+    Starting playback...
+    A: 205.9 (03:25.8) of 230.9 (03:50.9)  1.6%
