@@ -24,82 +24,126 @@
 import os
 import sys
 import time
+import datetime
+import calendar
 
 __all__ = "alarm"
 __author__ = "dslackw"
-__version_info__ = (1, 1)
+__version_info__ = (1, 2)
 __version__ = "{0}.{1}".format(*__version_info__)
 __license__ = "GNU General Public License v3 (GPLv3)"
 __email__ = "d.zlatanidis@gmail.com"
 
-def start_ALARM(ALARM, SONG):
-    '''
-        All the work going on here. To the Authority the 
-        right time format and finding the correct path of 
-        the file. The Application requires Mplayer to play
-        the alarm sound. Please read which sounds are supported 
-        in page : 
-        http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
-    '''
-    RUN_ALARM = True
-    try:
-        ALARM = ALARM.replace(":", " ").split() # split items
-        for item in ALARM:
-            if len(item) > 2 or len(item) == 1:
-                print("Setting time pattern is 'HH:MM:SS'")
-                RUN_ALARM = False 
-        if int(ALARM[0]) in range(0, 24):
-            pass
-        else:
-            print("Error: hour out of range")
-            RUN_ALARM = False
-        if int(ALARM[1]) in range(0, 60):
-            pass
-        else:
-            print("Error: minutes out of range")
-            RUN_ALARM = False
-        if int(ALARM[2]) in range(0, 60):
-            pass
-        else:
-            print("Error: seconds out of range")
-            RUN_ALARM = False
-    except ValueError:
-        print("Setting time pattern is 'HH:MM:SS'")
-        RUN_ALARM = False
-    if not os.path.isfile(SONG):
-        print("Error: the file does not exist")
-        RUN_ALARM = False
-    ALARM = ":".join(ALARM) # reset begin format
-    if RUN_ALARM:
-        os.system("clear")
-        print("+" + "=" * 78 + "+")
-        print("|" + " " * 30 + "CLI Alarm Clock" + " " * 33 + "|")
-        print("+" + "=" * 78 + "+")
-        print("| Alarm set at : %s" % ALARM + " " * (62-len(ALARM)) + "|")
-        print("| Sound file in : %s" % SONG + " " * (61-len(SONG)) + "|")
-        print("| Time : " + " " * 70 + "|")
-        print("+" + "=" * 78 + "+")
-        while RUN_ALARM:
-            try:
-                start_time = time.strftime("%H:%M:%S")
-                position(6, 10, start_time)
-                time.sleep(0.1)
-                if start_time == ALARM:
-                    os.system("mplayer '%s'" % SONG)
-                    RUN_ALARM = False
-            except KeyboardInterrupt:
-                print("\nAlarm canceled!")
-                RUN_ALARM = False
 
-def position(x, y, text):
+class ALARM(object):
     '''
-        I dont know how work this but work well.
-        Thanks for that 'rumpel' from :
-        http://stackoverflow.com/questions/7392779/is-it-possible-
-        to-print-a-string-at-a-certain-screen-position-inside-idle
+        CLI Alarm Clock
     '''    
-    sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (x, y, text))
-    sys.stdout.flush()
+    def __init__(self, alarm_day, alarm_time, song):
+        self.alarm_day = alarm_day
+        self.alarm_time = alarm_time.replace(":", " ").split() # split items
+        self.song = song
+        self.alarm_hour = self.alarm_time[0]
+        self.alarm_minutes = self.alarm_time[1]
+        self.alarm_seconds = self.alarm_time[2]
+    
+    def start(self):
+        '''
+            All the work going on here. To the Authority the 
+            right time format and finding the correct path of 
+            the file. The Application requires Mplayer to play
+            the alarm sound. Please read which sounds are supported 
+            in page : 
+            http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
+        '''
+        RUN_ALARM = True
+        try:
+            now = datetime.datetime.now()
+            if int(self.alarm_day) > calendar.monthrange(now.year, now.month)[1] or int(self.alarm_day) < 1:
+                print("Error: day out of range")
+                RUN_ALARM = False
+            for item in self.alarm_time:
+                if len(item) > 2 or len(item) == 1:
+                    print("Usage 'HH:MM:SS'")
+                    RUN_ALARM = False 
+            if int(self.alarm_hour) in range(0, 24):
+                pass
+            else:
+                print("Error: hour out of range")
+                RUN_ALARM = False
+            if int(self.alarm_minutes) in range(0, 60):
+                pass
+            else:
+                print("Error: minutes out of range")
+                RUN_ALARM = False
+            if int(self.alarm_seconds) in range(0, 60):
+                pass
+            else:
+                print("Error: seconds out of range")
+                RUN_ALARM = False
+        except ValueError:
+            print("Usage 'HH:MM:SS'")
+            RUN_ALARM = False
+        if not os.path.isfile(self.song):
+            print("Error: the file does not exist")
+            RUN_ALARM = False
+        alarm_day_name = calendar.day_name[calendar.weekday(now.year, now.month, int(self.alarm_day))]
+        self.alarm_time.insert(0, self.alarm_day)
+        self.alarm_time = ":".join(self.alarm_time) # reset begin format
+        if RUN_ALARM:
+            os.system("clear")
+            print("+" + "=" * 78 + "+")
+            print("|" + " " * 30 + "CLI Alarm Clock" + " " * 33 + "|")
+            print("+" + "=" * 78 + "+")
+            print("| Alarm set at : %s %s" % (
+                  alarm_day_name, self.alarm_time[3:]) + " " * (
+                  61-len(alarm_day_name + self.alarm_time[3:])) + "|")
+            print("| Sound file : %s" % self.song + " " * (64-len(self.song)) + "|")
+            print("| Time : " + " " * 70 + "|")
+            print("| Countdown :" + " " * 66 + "|")
+            print("+" + "=" * 78 + "+")
+            while RUN_ALARM:
+                try:
+                    start_time = time.strftime("%d:%H:%M:%S")
+                    remaining = self.countdown(start_time[3:-6], start_time[6:-3], start_time[9:])
+                    self.position(6, 10, start_time[3:])
+                    self.position(7, 15, remaining)
+                    time.sleep(1)
+                    if start_time == self.alarm_time:
+                        os.system("mplayer '%s'" % self.song)
+                        RUN_ALARM = False
+                except KeyboardInterrupt:
+                    print("\nAlarm canceled!")
+                    RUN_ALARM = False
+
+    def position(self, x, y, text):
+        '''
+            ANSI Escape sequences
+            http://ascii-table.com/ansi-escape-sequences.php
+        '''    
+        sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (x, y, text))
+        sys.stdout.flush()
+
+    def countdown(self, hour, minutes, seconds):
+        '''
+            Countdown alarm is sum time before ring the bells :)
+        '''
+        sum_hour = abs(int(self.alarm_hour) - int(hour))
+        sum_min = abs(int(self.alarm_minutes) - int(minutes))
+        sec = int(seconds)
+        sec -= 1 
+        zero_hour, zero_min, zero_sec = "", "", ""
+        if len(str(sum_hour)) == 1:
+            zero_hour = "0"
+        if len(str(sum_min)) == 1:
+            zero_min = "0"
+        if len(str(sec)) == 1:
+            zero_sec = "0"
+        cd_hour = zero_hour + str(sum_hour)
+        cd_min = zero_min + str(sum_min)
+        cd_sec = zero_sec + str(sec)
+        remaining = ("%s:%s:%s" % (cd_hour, cd_min, cd_sec))
+        return remaining
 
 def main():
     args = sys.argv
@@ -108,16 +152,16 @@ def main():
         print("try alarm --help")
     elif len(args) == 1 and args[0] == "-h" or args[0] == "--help":
         print("usage: %s [-h] [-v]" % __all__)
-        print("             [-s] <time> <song>\n")
+        print("             [-s] <day> <alarm time> <song>\n")
         print("optional arguments")
         print("  -h, --help       show this help message and exit")
         print("  -v, --version    print version and exit")
-        print("  -s, --set        set time and sound")
-        print("\nexample: alarm -s 06:00:00 /path/to/song.mp3") 
+        print("  -s, --set        set alarm time and sound")
+        print("\nexample: alarm -s 21 06:00:00 /path/to/song.mp3") 
     elif len(args) == 1 and args[0] == "-v" or args[0] == "--version":
         print("Version : %s" % __version__)
-    elif len(args) == 3 and args[0] == "-s" or len(args) == 3 and args[0] == "--set":
-        start_ALARM(ALARM=args[1], SONG=args[2])
+    elif len(args) == 4 and args[0] == "-s" or len(args) == 4 and args[0] == "--set":
+        ALARM(alarm_day=args[1], alarm_time=args[2], song=args[3]).start()
     else:
         print("try alarm --help")
         
