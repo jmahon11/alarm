@@ -25,7 +25,7 @@ You can create a list and use it as an alarm sound:
 
 .. code-block:: bash
     
-    $ cat * .mp3> playlist.m3u
+    $ cat *.mp3 > playlist.m3u
     $ alarm -s 17 07:05 ~/Music/playlist.m3u
 
 You will find some sounds in folder alarm/sounds.
