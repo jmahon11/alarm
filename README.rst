@@ -11,6 +11,9 @@
 CLI Alarm Clock
 ===============
 
+.. image:: https://raw.githubusercontent.com/dslackw/images/master/alarm/alarm-clock-icon.png
+    :target: https://github.com/dslackw/alarm
+
 Alarm is CLI utility written in Python language.
 
 How works
