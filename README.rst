@@ -6,11 +6,30 @@
     :target: https://pypi.python.org/pypi/alarm
 
 
+.. contents:: Table of Contents:
+
 CLI Alarm Clock
 ===============
 
 Alarm is CLI utility written in Python language.
 
+How works
+---------
+
+When the date and time coincides with the current the alarm starts playing 
+the sound is selected for five consecutive times. You can stop the alarm by
+pressing 'space' is an attempt to cancel the 'Ctrl + c'.
+
+You can create a list and use it as an alarm sound:
+
+.. code-block:: bash
+    
+    $ cat * .mp3> playlist.m3u
+    $ alarm -s 17 07:05 ~/Music/playlist.m3u
+
+You will find some sounds in folder alarm/sounds.
+Some will make you laugh, have fun !!!
+    
 Requirements
 ------------
 
@@ -18,7 +37,6 @@ Requirements
 
     - Python 2 or 3
     - Mplayer
-
 
 Installation
 ------------
@@ -47,32 +65,33 @@ Command Line Tool Usage
       -v, --version    print version and exit
       -s, --set        set alarm day, time and sound
     
-    example: alarm -s 17 06:00 /path/to/song.mp3
+    example: alarm -s 21 06:00 /path/to/song.mp3
 
 
 Example:
 
 .. code-block:: bash
    
-    $ alarm -s 17 22:05 ~/Music/xristina.ogg
+    $ alarm -s 17 22:05 ~/alarm/sounds/wake_up.mp3
 
     +==============================================================================+
     |                              CLI Alarm Clock                                 |
     +==============================================================================+
     | Alarm set at : Wednesday 22:05                                               |
-    | Sound file : /home/dslackw/Music/xristina.ogg                                |
+    | Sound file : ~/alarm/sounds/wake_up.mp3                                      |
     | Time : 21:06:41                                                              |
     +==============================================================================+
-
+    Press 'Ctrl + c' to cancel alarm ...
 
 
     +==============================================================================+
     |                              CLI Alarm Clock                                 |
     +==============================================================================+
     | Alarm set at : Wednesday 22:05                                               |
-    | Sound file : /home/dslackw/Music/xristina.ogg                                |
+    | Sound file :  ~/alarm/sounds/wake_up.mp3                                     |
     | Time : 22:05 Wake Up !                                                       |
     +==============================================================================+
+    Press 'Ctrl + c' to cancel alarm ...
     __        __    _          _   _         _ 
     \ \      / /_ _| | _____  | | | |_ __   | |
      \ \ /\ / / _` | |/ / _ \ | | | | '_ \  | |

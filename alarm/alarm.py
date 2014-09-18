@@ -29,7 +29,7 @@ import calendar
 
 __all__ = "alarm"
 __author__ = "dslackw"
-__version_info__ = (1, 2)
+__version_info__ = (1, 3)
 __version__ = "{0}.{1}".format(*__version_info__)
 __license__ = "GNU General Public License v3 (GPLv3)"
 __email__ = "d.zlatanidis@gmail.com"
@@ -50,6 +50,7 @@ class ALARM(object):
         self.RUN_ALARM = True
         self.alarm_day = alarm_day
         self.alarm_time = alarm_time.replace(":", " ").split() # split items
+        self.alarm_pattern = ["HH", "MM"]
         self.song = song
         try:
             self.alarm_hour = self.alarm_time[0]
@@ -73,22 +74,20 @@ class ALARM(object):
             if int(self.alarm_day) > calendar.monthrange(now.year, now.month)[1] or int(self.alarm_day) < 1:
                 print("Error: day out of range")
                 self.RUN_ALARM = False
-            for item in self.alarm_time:
-                if len(self.alarm_time) > 2 or len(item) > 2 or len(item) == 1:
-                    print("Usage 'HH:MM'")
-                    sys.exit()
-            if int(self.alarm_hour) in range(0, 24):
-                pass
-            else:
+            # compare alarm time with alarm pattern
+            if len(self.alarm_time) != len(self.alarm_pattern):
+                print("Usage '%s'" % ":".join(self.alarm_pattern))
+                self.RUN_ALARM = False
+            # compare if alarm hour or alarm minutes
+            # is within the range
+            if int(self.alarm_hour) not in range(0, 24):
                 print("Error: hour out of range")
                 self.RUN_ALARM = False
-            if int(self.alarm_minutes) in range(0, 60):
-                pass
-            else:
+            if int(self.alarm_minutes) not in range(0, 60):
                 print("Error: minutes out of range")
                 self.RUN_ALARM = False
         except ValueError:
-            print("Usage 'HH:MM'")
+            print("Usage '%s'" % ":".join(self.alarm_pattern))
             self.RUN_ALARM = False
         if not os.path.isfile(self.song):
             print("Error: the file does not exist")
@@ -110,6 +109,7 @@ class ALARM(object):
             print("| Sound file : %s" % self.song + " " * (64-len(self.song)) + "|")
             print("| Time : " + " " * 70 + "|")
             print("+" + "=" * 78 + "+")
+            print("Press 'Ctrl + c' to cancel alarm ...")
             while self.RUN_ALARM:
                 try:
                     start_time = time.strftime("%d:%H:%M:%S")
@@ -120,8 +120,11 @@ class ALARM(object):
                         self.position(6, 10, self.color(
                              "red") + start_time[3:-3] + self.color("endc") + " Wake Up !")
                         for wake in self.wakeup:
-                            print wake
-                        os.system("mplayer '%s'" % self.song)
+                            print(wake)
+                        for attempts in range(1, 6):
+                            print("Attempt %d\n" % attempts)
+                            os.system("mplayer '%s'" % self.song)
+                            print("\nPress 'PAUSE' to stop alarm ...\n")
                         self.RUN_ALARM = False
                 except KeyboardInterrupt:
                     print("\nAlarm canceled!")
