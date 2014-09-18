@@ -18,8 +18,8 @@ How works
 
 When the date and time coincides with the current the alarm starts 
 playing the sound is selected for five consecutive times. You can 
-pause the alarm by pressing 'space' is an attempt to cancel the 
-'Ctrl + c'.
+pause the alarm by pressing 'p' or 'space' is an attempt to cancel the 
+'q' or 'ESC'. Change the volume of the alarm by pressing '*' or '/'.
 
 You can create a list and use it as an alarm sound:
 
@@ -68,12 +68,11 @@ Command Line Tool Usage
     
     example: alarm -s 21 06:00 /path/to/song.mp3
 
-
 Example:
 
 .. code-block:: bash
    
-    $ alarm -s 17 22:05 ~/alarm/sounds/wake_up.mp3
+    $ alarm -s 18 22:05 ~/alarm/sounds/wake_up.mp3
 
     +==============================================================================+
     |                              CLI Alarm Clock                                 |
@@ -99,21 +98,22 @@ Example:
       \ V  V / (_| |   <  __/ | |_| | |_) | |_|
        \_/\_/ \__,_|_|\_\___|  \___/| .__/  (_)
                                     |_|
+    
+    Attempt 1
 
     MPlayer 1.1-4.8.2 (C) 2000-2012 MPlayer Team
-    Playing /home/dslackw/Music/xristina.ogg.
+
+    Playing /home/dslackw/alarm/sounds/wake_up.mp3.
     libavformat version 54.6.100 (internal)
-    libavformat file format detected.
-    [lavf] stream 0: audio (vorbis), -aid 0, -alang eng
-    Load subtitles in /home/dslackw/Music/
+    Audio only file format detected.
+    Load subtitles in /home/dslackw/alarm/sounds/
     ==========================================================================
-    Opening audio decoder: [ffmpeg] FFmpeg/libavcodec audio decoders
-    libavcodec version 54.23.100 (internal)
-    AUDIO: 44100 Hz, 2 ch, s16le, 0.0 kbit/0.00% (ratio: 0->176400)
-    Selected audio codec: [ffvorbis] afm: ffmpeg (FFmpeg Vorbis)
+    Opening audio decoder: [mpg123] MPEG 1.0/2.0/2.5 layers I, II, III
+    AUDIO: 44100 Hz, 2 ch, s16le, 128.0 kbit/9.07% (ratio: 16000->176400)
+    Selected audio codec: [mpg123] afm: mpg123 (MPEG 1.0/2.0/2.5 layers I, II, III)
     ==========================================================================
     [AO OSS] audio_setup: Can't open audio device /dev/dsp: No such file or directory
     AO: [alsa] 48000Hz 2ch s16le (2 bytes per sample)
     Video: no video
-    Starting playback...
-    A: 205.9 (03:25.8) of 230.9 (03:50.9)  1.6%
+    
+    A:   0.9 (00.9) of 17.0 (17.0)  1.3%
