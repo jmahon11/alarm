@@ -102,21 +102,8 @@ Example:
        \_/\_/ \__,_|_|\_\___|  \___/| .__/  (_)
                                     |_|
     
+    Press 'SPACE' to pause alarm ...                                    
+    
     Attempt 1
 
-    MPlayer 1.1-4.8.2 (C) 2000-2012 MPlayer Team
-
-    Playing /home/dslackw/alarm/sounds/wake_up.mp3.
-    libavformat version 54.6.100 (internal)
-    Audio only file format detected.
-    Load subtitles in /home/dslackw/alarm/sounds/
-    ==========================================================================
-    Opening audio decoder: [mpg123] MPEG 1.0/2.0/2.5 layers I, II, III
-    AUDIO: 44100 Hz, 2 ch, s16le, 128.0 kbit/9.07% (ratio: 16000->176400)
-    Selected audio codec: [mpg123] afm: mpg123 (MPEG 1.0/2.0/2.5 layers I, II, III)
-    ==========================================================================
-    [AO OSS] audio_setup: Can't open audio device /dev/dsp: No such file or directory
-    AO: [alsa] 48000Hz 2ch s16le (2 bytes per sample)
-    Video: no video
-    
-    A:   0.9 (00.9) of 17.0 (17.0)  1.3%
+    Attempt 2

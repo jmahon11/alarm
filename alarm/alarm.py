@@ -26,10 +26,11 @@ import sys
 import time
 import datetime
 import calendar
+import subprocess
 
 __all__ = "alarm"
 __author__ = "dslackw"
-__version_info__ = (1, 3)
+__version_info__ = (1, 4)
 __version__ = "{0}.{1}".format(*__version_info__)
 __license__ = "GNU General Public License v3 (GPLv3)"
 __email__ = "d.zlatanidis@gmail.com"
@@ -52,6 +53,7 @@ class ALARM(object):
         self.alarm_time = alarm_time.replace(":", " ").split() # split items
         self.alarm_pattern = ["HH", "MM"]
         self.song = song
+        self.mplayer_options = "-really-quiet"
         try:
             self.alarm_hour = self.alarm_time[0]
             self.alarm_minutes = self.alarm_time[1]
@@ -121,10 +123,10 @@ class ALARM(object):
                              "red") + start_time[3:-3] + self.color("endc") + " Wake Up !")
                         for wake in self.wakeup:
                             print(wake)
+                        print("\nPress 'SPACE' to pause alarm ...\n")
                         for attempts in range(1, 6):
                             print("Attempt %d\n" % attempts)
-                            os.system("mplayer '%s'" % self.song)
-                            print("\nPress 'PAUSE' to stop alarm ...\n")
+                            os.system("mplayer %s '%s'" % (self.mplayer_options, self.song))
                         self.RUN_ALARM = False
                 except KeyboardInterrupt:
                     print("\nAlarm canceled!")
