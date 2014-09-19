@@ -14,7 +14,7 @@ CLI Alarm Clock
 .. image:: https://raw.githubusercontent.com/dslackw/images/master/alarm/alarm-clock-icon.png
     :target: https://github.com/dslackw/alarm
 
-Alarm is CLI utility written in Python language.
+Alarm is command line alarm clock utility written in Python language.
 
 How works
 ---------
@@ -69,6 +69,8 @@ Command Line Tool Usage
       -v, --version    print version and exit
       -s, --set        set alarm day, time and sound
     
+      --config         use config file
+
     example: alarm -s 21 06:00 /path/to/song.mp3
 
 Example:
@@ -107,3 +109,18 @@ Example:
     Attempt 1
 
     Attempt 2
+
+Use config file in $HOME/.ararm/config:
+
+.. code-block:: bash
+
+    $ alarm --config
+
+    +==============================================================================+
+    |                              CLI Alarm Clock                                 |
+    +==============================================================================+
+    | Alarm set at : Wednesday 07:00                                               |
+    | Sound file : /home/user/alarm/sounds/funny.mp3                               |
+    | Time : 00:09:22                                                              |
+    +==============================================================================+
+    Press 'Ctrl + c' to cancel alarm ...

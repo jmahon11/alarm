@@ -44,6 +44,61 @@ if not _found_mplayer:
     print("Error: Mplayer required !")
     sys.exit()
 
+config = ["# configuration file for alarm\n\n",
+          "[Day]\n",
+          "# Choose 'today' if you do not want to regulate daily day.\n",
+          "# DAY=today\n\n",
+          "[Alarm Time]\n",
+          "# Constant alarm time.\n",
+          "# ALARM_TIME=HH:MM\n\n",
+          "[Alarm Attempts]\n",
+          "# Select number for attempts.\n",
+          "# ATTEMPTS=5\n\n",
+          "[Path]\n",
+          "# Path statements sound files.\n",
+          "# SONG=/path/to/song.mp3"]
+
+HOME = os.getenv("HOME") + "/"
+alarm_config_dir = ".alarm"
+config_file = "config"
+alarm_config = ("%s%s/%s" % (HOME, alarm_config_dir, config_file))
+if not os.path.exists(HOME + alarm_config_dir):
+    os.mkdir(HOME + alarm_config_dir)
+if not os.path.isfile(alarm_config):
+    with open(alarm_config, "w") as conf:
+        for line in config:
+            conf.write(line)
+        conf.close()
+
+def config():
+    '''
+        Reading config file in $HOME directory
+        /home/user/.alarm/config
+    '''
+    alarm_day = alarm_time = alarm_attempts = song = []
+    for line in open(alarm_config, "r"):
+        line = line.lstrip()
+        if line.startswith("DAY"):
+            alarm_day = line[4:].split()
+        if line.startswith("ALARM_TIME"):
+            alarm_time = line[11:].split()
+        if line.startswith("ATTEMPTS"):
+            alarm_attempts = line[9:].split()
+        if line.startswith("SONG"):
+            song = line[5:].split()
+    if alarm_day == ["today"]:
+        alarm_day = time.strftime("%d").split()
+    alarm_args = alarm_day + alarm_time + alarm_attempts + song   
+    if alarm_args:
+        if len(alarm_args) == 4:
+            return alarm_args
+        else:
+            print("Error: config file: missing argument")
+            sys.exit()
+    else:
+        print("Error: config file: missing argument")
+        sys.exit()
+
 class MplayerNotInstalledException(Exception):
     def __init__(self):
         print("Error: Mplayer required for playing alarm sounds\n")
@@ -52,7 +107,7 @@ class ALARM(object):
     '''
         CLI Alarm Clock
     '''    
-    def __init__(self, alarm_day, alarm_time, song):
+    def __init__(self, alarm_day, alarm_time, alarm_attempts, song):
         
         self.wakeup = ["__        __    _          _   _         _ ",
                        "\ \      / /_ _| | _____  | | | |_ __   | |",
@@ -64,6 +119,7 @@ class ALARM(object):
         self.alarm_day = alarm_day
         self.alarm_time = alarm_time.replace(":", " ").split() # split items
         self.alarm_pattern = ["HH", "MM"]
+        self.alarm_attempts = alarm_attempts
         self.song = song
         self.mplayer_options = "-really-quiet"
         try:
@@ -85,7 +141,8 @@ class ALARM(object):
         '''
         try:
             now = datetime.datetime.now()
-            if int(self.alarm_day) > calendar.monthrange(now.year, now.month)[1] or int(self.alarm_day) < 1:
+            if int(self.alarm_day) > calendar.monthrange(now.year, \
+                   now.month)[1] or int(self.alarm_day) < 1:
                 print("Error: day out of range")
                 self.RUN_ALARM = False
             # compare alarm time with alarm pattern
@@ -107,7 +164,8 @@ class ALARM(object):
             print("Error: the file does not exist")
             self.RUN_ALARM = False
         try:
-            alarm_day_name = calendar.day_name[calendar.weekday(now.year, now.month, int(self.alarm_day))]
+            alarm_day_name = calendar.day_name[calendar.weekday(now.year, now.month, \
+                             int(self.alarm_day))]
         except ValueError:
             pass
         self.alarm_time.insert(0, self.alarm_day)
@@ -136,8 +194,12 @@ class ALARM(object):
                         for wake in self.wakeup:
                             print(wake)
                         print("\nPress 'SPACE' to pause alarm ...\n")
-                        for attempts in range(1, 6):
-                            print("Attempt %d\n" % attempts)
+                        if not self.alarm_attempts:
+                            self.alarm_attempts = 6
+                        else:
+                            self.alarm_attempts = int(self.alarm_attempts) + 1
+                        for att in range(1, self.alarm_attempts):
+                            print("Attempt %d\n" % att)
                             play = os.system("mplayer %s '%s'" % (self.mplayer_options, self.song))
                             # catch if mplayer not installed
                             # if play return 0 all good
@@ -169,23 +231,35 @@ class ALARM(object):
                 }
         return paint[color] 
 
+class ArgsView:
+    '''
+        Arguments view
+    '''
+    arguments = ["usage: alarm [-h] [-v]",
+    "             [-s] <day> <alarm time> <song>\n",
+    "optional arguments",
+    "  -h, --help       show this help message and exit",
+    "  -v, --version    print version and exit",
+    "  -s, --set        set alarm day, time and sound\n",
+    "  --config         use config file\n",
+    "example: alarm -s 21 06:00 /path/to/song.mp3"]
+
+
 def main():
     args = sys.argv
     args.pop(0)
     if len(args) == 0:
         print("try alarm --help")
     elif len(args) == 1 and args[0] == "-h" or args[0] == "--help":
-        print("usage: %s [-h] [-v]" % __all__)
-        print("             [-s] <day> <alarm time> <song>\n")
-        print("optional arguments")
-        print("  -h, --help       show this help message and exit")
-        print("  -v, --version    print version and exit")
-        print("  -s, --set        set alarm day, time and sound")
-        print("\nexample: alarm -s 21 06:00 /path/to/song.mp3") 
+        for line in ArgsView.arguments:
+            print(line)
     elif len(args) == 1 and args[0] == "-v" or args[0] == "--version":
         print("Version : %s" % __version__)
     elif len(args) == 4 and args[0] == "-s" or len(args) == 4 and args[0] == "--set":
-        ALARM(alarm_day=args[1], alarm_time=args[2], song=args[3]).start()
+        ALARM(alarm_day=args[1], alarm_time=args[2], alarm_attempts="", song=args[3]).start()
+    elif len(args) == 1 and args[0] == "--config":
+        alarm_set_args = config()
+        ALARM(alarm_set_args[0], alarm_set_args[1], alarm_set_args[2], alarm_set_args[3]).start()
     else:
         print("try alarm --help")
         
