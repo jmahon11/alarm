@@ -30,11 +30,23 @@ import subprocess
 
 __all__ = "alarm"
 __author__ = "dslackw"
-__version_info__ = (1, 4)
+__version_info__ = (1, 5)
 __version__ = "{0}.{1}".format(*__version_info__)
 __license__ = "GNU General Public License v3 (GPLv3)"
 __email__ = "d.zlatanidis@gmail.com"
 
+# check if Mplayer installed
+_found_mplayer = None
+for dir in os.environ["PATH"].split(os.pathsep):
+    if os.path.exists(os.path.join(dir, "mplayer")):
+        _found_mplayer = dir
+if not _found_mplayer:
+    print("Error: Mplayer required !")
+    sys.exit()
+
+class MplayerNotInstalledException(Exception):
+    def __init__(self):
+        print("Error: Mplayer required for playing alarm sounds\n")
 
 class ALARM(object):
     '''
@@ -112,8 +124,8 @@ class ALARM(object):
             print("| Time : " + " " * 70 + "|")
             print("+" + "=" * 78 + "+")
             print("Press 'Ctrl + c' to cancel alarm ...")
-            while self.RUN_ALARM:
-                try:
+            try:
+                while self.RUN_ALARM:
                     start_time = time.strftime("%d:%H:%M:%S")
                     self.position(6, 10, self.color(
                          "green") + start_time[3:] + self.color("endc"))
@@ -126,9 +138,15 @@ class ALARM(object):
                         print("\nPress 'SPACE' to pause alarm ...\n")
                         for attempts in range(1, 6):
                             print("Attempt %d\n" % attempts)
-                            os.system("mplayer %s '%s'" % (self.mplayer_options, self.song))
+                            play = os.system("mplayer %s '%s'" % (self.mplayer_options, self.song))
+                            # catch if mplayer not installed
+                            # if play return 0 all good
+                            # 256=KeyboardInterupt
+                            if play != 0 and play != 256:
+                                MplayerNotInstalledException()
+                                break
                         self.RUN_ALARM = False
-                except KeyboardInterrupt:
+            except KeyboardInterrupt:
                     print("\nAlarm canceled!")
                     self.RUN_ALARM = False
 
