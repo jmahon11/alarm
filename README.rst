@@ -31,7 +31,9 @@ You can create a list and use it as an alarm sound:
     $ cat *.mp3 > playlist.m3u
     $ alarm -s 17 07:05 ~/Music/playlist.m3u
 
-You will find some sounds in folder alarm/sounds.
+You will find some sounds in folder alarm/sounds
+only GitHub tar archive `alarm-1.6.tar.gz <https://github.com/dslackw/alarm/archive/v1.6.tar.gz`_ or
+zip archive `alarm-1.6.zip <https://github.com/dslackw/alarm/archive/v1.5.zip>`_
 Some will make you laugh, have fun !!!
     
 Requirements

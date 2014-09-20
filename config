@@ -10,8 +10,8 @@
 
 [Alarm Attempts]
 # Select number for attempts 
- attempts=10
+ attempts=5
 
 [Path]
 # Path statements sound files
- SONG=/homr/user/Music/song.mp3
+ SONG=/usr/share/alarm/sounds/funny.mp3

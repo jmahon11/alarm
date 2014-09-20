@@ -30,7 +30,7 @@ import subprocess
 
 __all__ = "alarm"
 __author__ = "dslackw"
-__version_info__ = (1, 5)
+__version_info__ = (1, 6)
 __version__ = "{0}.{1}".format(*__version_info__)
 __license__ = "GNU General Public License v3 (GPLv3)"
 __email__ = "d.zlatanidis@gmail.com"
@@ -195,11 +195,11 @@ class ALARM(object):
                             print(wake)
                         print("\nPress 'SPACE' to pause alarm ...\n")
                         if not self.alarm_attempts:
-                            self.alarm_attempts = 6
+                            self.alarm_attempts = 5
                         else:
-                            self.alarm_attempts = int(self.alarm_attempts) + 1
-                        for att in range(1, self.alarm_attempts):
-                            print("Attempt %d\n" % att)
+                            self.alarm_attempts = int(self.alarm_attempts)
+                        for att in range(0, self.alarm_attempts):
+                            print("Attempt %d\n" % (att + 1))
                             play = os.system("mplayer %s '%s'" % (self.mplayer_options, self.song))
                             # catch if mplayer not installed
                             # if play return 0 all good
