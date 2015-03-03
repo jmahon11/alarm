@@ -26,7 +26,7 @@ import sys
 import time
 import datetime
 import calendar
-import subprocess
+
 
 __all__ = "alarm"
 __author__ = "dslackw"
@@ -70,6 +70,7 @@ if not os.path.isfile(alarm_config):
             conf.write(line)
         conf.close()
 
+
 def config():
     '''
         Reading config file in $HOME directory
@@ -88,7 +89,7 @@ def config():
             song = line[5:].split()
     if alarm_day == ["today"]:
         alarm_day = time.strftime("%d").split()
-    alarm_args = alarm_day + alarm_time + alarm_attempts + song   
+    alarm_args = alarm_day + alarm_time + alarm_attempts + song
     if alarm_args:
         if len(alarm_args) == 4:
             return alarm_args
@@ -99,16 +100,18 @@ def config():
         print("Error: config file: missing argument")
         sys.exit()
 
+
 class MplayerNotInstalledException(Exception):
     def __init__(self):
         print("Error: Mplayer required for playing alarm sounds\n")
 
+
 class ALARM(object):
     '''
         CLI Alarm Clock
-    '''    
+    '''
     def __init__(self, alarm_day, alarm_time, alarm_attempts, song):
-        
+
         self.wakeup = ["__        __    _          _   _         _ ",
                        "\ \      / /_ _| | _____  | | | |_ __   | |",
                        " \ \ /\ / / _` | |/ / _ \ | | | | '_ \  | |",
@@ -117,7 +120,7 @@ class ALARM(object):
                        "                                |_|\n"]
         self.RUN_ALARM = True
         self.alarm_day = alarm_day
-        self.alarm_time = alarm_time.replace(":", " ").split() # split items
+        self.alarm_time = alarm_time.replace(":", " ").split()  # split items
         self.alarm_pattern = ["HH", "MM"]
         self.alarm_attempts = alarm_attempts
         self.song = song
@@ -125,24 +128,25 @@ class ALARM(object):
         try:
             self.alarm_hour = self.alarm_time[0]
             self.alarm_minutes = self.alarm_time[1]
-        except IndexError: # if one value in list 
+        except IndexError:      # if one value in list
             print("Usage 'HH:MM'")
             self.alarm_hour = "00"
             self.alarm_minutes = "00"
             self.alarm_time = [self.alarm_hour, self.alarm_minutes]
             self.RUN_ALARM = False
-    
+
     def start(self):
         '''
-            All the work going on here. To the Authority the right day and time
-            format and finding the correct path of the file. The Application requires
-            Mplayer to play the alarm sound. Please read which sounds are supported in page: 
-            http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
+        All the work going on here. To the Authority the right day and time
+        format and finding the correct path of the file. The Application
+        requires Mplayer to play the alarm sound. Please read which sounds
+        are supported in page:
+        http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
         '''
         try:
             now = datetime.datetime.now()
-            if int(self.alarm_day) > calendar.monthrange(now.year, \
-                   now.month)[1] or int(self.alarm_day) < 1:
+            if int(self.alarm_day) > calendar.monthrange(
+                    now.year, now.month)[1] or int(self.alarm_day) < 1:
                 print("Error: day out of range")
                 self.RUN_ALARM = False
             # compare alarm time with alarm pattern
@@ -164,21 +168,22 @@ class ALARM(object):
             print("Error: the file does not exist")
             self.RUN_ALARM = False
         try:
-            alarm_day_name = calendar.day_name[calendar.weekday(now.year, now.month, \
-                             int(self.alarm_day))]
+            alarm_day_name = calendar.day_name[calendar.weekday(
+                now.year, now.month, int(self.alarm_day))]
         except ValueError:
             pass
         self.alarm_time.insert(0, self.alarm_day)
-        self.alarm_time = ":".join(self.alarm_time) # reset begin format
+        self.alarm_time = ":".join(self.alarm_time)     # reset begin format
         if self.RUN_ALARM:
             os.system("clear")
             print("+" + "=" * 78 + "+")
             print("|" + " " * 30 + "CLI Alarm Clock" + " " * 33 + "|")
             print("+" + "=" * 78 + "+")
             print("| Alarm set at : %s %s" % (
-                  alarm_day_name, self.alarm_time[3:]) + " " * (
-                  61-len(alarm_day_name + self.alarm_time[3:])) + "|")
-            print("| Sound file : %s" % self.song + " " * (64-len(self.song)) + "|")
+                  alarm_day_name, self.alarm_time[2:]) + " " * (
+                  61-len(alarm_day_name + self.alarm_time[2:])) + "|")
+            print("| Sound file : %s" % self.song + " " * (64-len(
+                self.song)) + "|")
             print("| Time : " + " " * 70 + "|")
             print("+" + "=" * 78 + "+")
             print("Press 'Ctrl + c' to cancel alarm ...")
@@ -186,11 +191,15 @@ class ALARM(object):
                 while self.RUN_ALARM:
                     start_time = time.strftime("%d:%H:%M:%S")
                     self.position(6, 10, self.color(
-                         "green") + start_time[3:] + self.color("endc"))
+                        "green") + start_time[3:] + self.color("endc"))
                     time.sleep(1)
-                    if start_time[:-3] == self.alarm_time:
+                    begin = start_time[:-3]
+                    if start_time[0] == '0':
+                        begin = start_time[1:-3]
+                    if begin == self.alarm_time:
                         self.position(6, 10, self.color(
-                             "red") + start_time[3:-3] + self.color("endc") + " Wake Up !")
+                            "red") + start_time[3:-3] + self.color(
+                                "endc") + " Wake Up !")
                         for wake in self.wakeup:
                             print(wake)
                         print("\nPress 'SPACE' to pause alarm ...\n")
@@ -200,7 +209,8 @@ class ALARM(object):
                             self.alarm_attempts = int(self.alarm_attempts)
                         for att in range(0, self.alarm_attempts):
                             print("Attempt %d\n" % (att + 1))
-                            play = os.system("mplayer %s '%s'" % (self.mplayer_options, self.song))
+                            play = os.system("mplayer %s '%s'" % (
+                                self.mplayer_options, self.song))
                             # catch if mplayer not installed
                             # if play return 0 all good
                             # 256=KeyboardInterupt
@@ -216,33 +226,36 @@ class ALARM(object):
         '''
             ANSI Escape sequences
             http://ascii-table.com/ansi-escape-sequences.php
-        '''    
+        '''
         sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (x, y, text))
         sys.stdout.flush()
 
     def color(self, color):
         '''
-            Print foreground colors 
+            Print foreground colors
         '''
         paint = {
-                "red" : "\x1b[31m",
-                "green" : "\x1b[32m",
-                "endc" : "\x1b[0m"
-                }
-        return paint[color] 
+            "red": "\x1b[31m",
+            "green": "\x1b[32m",
+            "endc": "\x1b[0m"
+        }
+        return paint[color]
+
 
 class ArgsView:
     '''
         Arguments view
     '''
-    arguments = ["usage: alarm [-h] [-v]",
-    "             [-s] <day> <alarm time> <song>\n",
-    "optional arguments",
-    "  -h, --help       show this help message and exit",
-    "  -v, --version    print version and exit",
-    "  -s, --set        set alarm day, time and sound\n",
-    "  --config         use config file\n",
-    "example: alarm -s 21 06:00 /path/to/song.mp3"]
+    arguments = [
+        "usage: alarm [-h] [-v]",
+        "  [-s] <day> <alarm time> <song>\n",
+        "optional arguments",
+        "  -h, --help       show this help message and exit",
+        "  -v, --version    print version and exit",
+        "  -s, --set        set alarm day, time and sound\n",
+        "  --config         use config file\n",
+        "example: alarm -s 21 06:00 /path/to/song.mp3"
+    ]
 
 
 def main():
@@ -255,13 +268,16 @@ def main():
             print(line)
     elif len(args) == 1 and args[0] == "-v" or args[0] == "--version":
         print("Version : %s" % __version__)
-    elif len(args) == 4 and args[0] == "-s" or len(args) == 4 and args[0] == "--set":
-        ALARM(alarm_day=args[1], alarm_time=args[2], alarm_attempts="", song=args[3]).start()
+    elif (len(args) == 4 and args[0] == "-s" or len(args) == 4 and
+          args[0] == "--set"):
+        ALARM(alarm_day=args[1], alarm_time=args[2], alarm_attempts="",
+              song=args[3]).start()
     elif len(args) == 1 and args[0] == "--config":
         alarm_set_args = config()
-        ALARM(alarm_set_args[0], alarm_set_args[1], alarm_set_args[2], alarm_set_args[3]).start()
+        ALARM(alarm_set_args[0], alarm_set_args[1], alarm_set_args[2],
+              alarm_set_args[3]).start()
     else:
         print("try alarm --help")
-        
+
 if __name__ == "__main__":
     main()
