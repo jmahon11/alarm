@@ -3,7 +3,7 @@
 
 # alarm.py
 
-# Copyright 2014 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
+# Copyright 2014-2015 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
 # All rights reserved.
 
 # CLI Alarm Clock
@@ -30,7 +30,7 @@ import calendar
 
 __all__ = "alarm"
 __author__ = "dslackw"
-__version_info__ = (1, 6)
+__version_info__ = (1, 7)
 __version__ = "{0}.{1}".format(*__version_info__)
 __license__ = "GNU General Public License v3 (GPLv3)"
 __email__ = "d.zlatanidis@gmail.com"
