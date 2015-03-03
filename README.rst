@@ -51,12 +51,19 @@ Using `pip <https://pip.pypa.io/en/latest/>`_ :
 
 .. code-block:: bash
 
-    $ pip install alarm
+    $ pip install alarm --upgrade
 
     uninstall:
 
     $ pip uninstall alarm
    
+
+Get the source 'git clone https://github.com/dslackw/alarm.git'
+
+.. code-block:: bash
+    
+    $ python setup.py --install
+
 
 Command Line Tool Usage
 -----------------------
