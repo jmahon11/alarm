@@ -150,7 +150,10 @@ class ALARM(object):
                 print("Error: day out of range")
                 self.RUN_ALARM = False
             # compare alarm time with alarm pattern
-            if len(self.alarm_time) != len(self.alarm_pattern):
+            if (len(self.alarm_time) != len(self.alarm_pattern) or
+                    len(self.alarm_time[0]) < 2 or
+                    len(self.alarm_time[0]) > 2 or
+                    len(self.alarm_time[1]) < 2 or len(self.alarm_time[1]) > 2):
                 print("Usage '%s'" % ":".join(self.alarm_pattern))
                 self.RUN_ALARM = False
             # compare if alarm hour or alarm minutes
@@ -180,7 +183,7 @@ class ALARM(object):
             print("|" + " " * 30 + "CLI Alarm Clock" + " " * 33 + "|")
             print("+" + "=" * 78 + "+")
             print("| Alarm set at : %s %s" % (
-                  alarm_day_name, self.alarm_time[2:]) + " " * (
+                  alarm_day_name, self.alarm_time[3:]) + " " * (
                   61-len(alarm_day_name + self.alarm_time[2:])) + "|")
             print("| Sound file : %s" % self.song + " " * (64-len(
                 self.song)) + "|")
