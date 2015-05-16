@@ -247,7 +247,7 @@ class ALARM(object):
         return paint[color]
 
 
-class Args:
+class Args(object):
 
     def __init__(self):
         pass
