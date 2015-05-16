@@ -131,7 +131,7 @@ class ALARM(object):
             self.alarm_hour = self.alarm_time[0]
             self.alarm_minutes = self.alarm_time[1]
         except IndexError:      # if one value in list
-            print("Usage 'HH:MM'")
+            print("error: time: usage 'HH:MM'")
             self.alarm_hour = "00"
             self.alarm_minutes = "00"
             self.alarm_time = [self.alarm_hour, self.alarm_minutes]
@@ -144,34 +144,34 @@ class ALARM(object):
         try:
             self.now = datetime.datetime.now()
             if len(self.alarm_day) < 2 or len(self.alarm_day) > 2:
-                print("Usage: 'DD' like '0%s' no '%s'" % (self.alarm_day,
-                                                          self.alarm_day))
+                print("error: day: usage 'DD' like '0%s' no '%s'" % (
+                    self.alarm_day, self.alarm_day))
                 self.RUN_ALARM = False
             if int(self.alarm_day) > calendar.monthrange(
                     self.now.year, self.now.month)[1] or int(
                         self.alarm_day) < 1:
-                print("Error: day out of range")
+                print("error: day: out of range")
                 self.RUN_ALARM = False
             # compare alarm time with alarm pattern
             if (len(self.alarm_time) != len(self.alarm_pattern) or
                     len(self.alarm_time[0]) < 2 or
                     len(self.alarm_time[0]) > 2 or
                     len(self.alarm_time[1]) < 2 or len(self.alarm_time[1]) > 2):
-                print("Usage '%s'" % ":".join(self.alarm_pattern))
+                print("error: time: usage '%s'" % ":".join(self.alarm_pattern))
                 self.RUN_ALARM = False
             # compare if alarm hour or alarm minutes
             # is within the range
             if int(self.alarm_hour) not in range(0, 24):
-                print("Error: hour out of range")
+                print("error: hour: out of range")
                 self.RUN_ALARM = False
             if int(self.alarm_minutes) not in range(0, 60):
-                print("Error: minutes out of range")
+                print("error: minutes: out of range")
                 self.RUN_ALARM = False
         except ValueError:
             print("Usage '%s'" % ":".join(self.alarm_pattern))
             self.RUN_ALARM = False
         if not os.path.isfile(self.song):
-            print("Error: song file does not exist")
+            print("error: song: file does not exist")
             self.RUN_ALARM = False
 
     def start(self):
