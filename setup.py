@@ -21,10 +21,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import sys
-import shutil
-
 try:
     from setuptools import setup
 except ImportError:
@@ -47,7 +43,8 @@ setup(
         "Development Status :: 3 - Alpha",
         "Classifier: Development Status :: 3 - Alpha",
         "Classifier: Environment :: Console",
-        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+        "License :: OSI Approved :: GNU General Public License v3 or later "
+        "(GPLv3+)",
         "Classifier: Operating System :: POSIX :: Linux",
         "Classifier: Operating System :: Unix",
         "Classifier: Programming Language :: Python",
