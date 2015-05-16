@@ -4,7 +4,7 @@
     :target: https://travis-ci.org/dslackw/alarm
 .. image:: https://landscape.io/github/dslackw/alarm/master/landscape.png
     :target: https://landscape.io/github/dslackw/alarm/master
-.. image:: https://img.shields.io/codacy/ea3c2619e1124874a7d53079092dc956.svg
+.. image:: https://img.shields.io/codacy/22fbb1e64acc45a78de3c86233d88d9a.svg
     :target: https://www.codacy.com/public/dzlatanidis/alarm/dashboard
 .. image:: https://img.shields.io/pypi/dm/alarm.svg
     :target: https://pypi.python.org/pypi/alarm
