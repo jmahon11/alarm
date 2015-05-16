@@ -224,8 +224,8 @@ class ALARM(object):
                                 break
                         self.RUN_ALARM = False
             except KeyboardInterrupt:
-                    print("\nAlarm canceled!")
-                    self.RUN_ALARM = False
+                print("\nAlarm canceled!")
+                self.RUN_ALARM = False
 
     def position(self, x, y, text):
         '''
