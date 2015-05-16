@@ -37,26 +37,28 @@ __email__ = "d.zlatanidis@gmail.com"
 
 # check if Mplayer installed
 _found_mplayer = None
-for dir in os.environ["PATH"].split(os.pathsep):
-    if os.path.exists(os.path.join(dir, "mplayer")):
-        _found_mplayer = dir
+for dr in os.environ["PATH"].split(os.pathsep):
+    if os.path.exists(os.path.join(dr, "mplayer")):
+        _found_mplayer = dr
 if not _found_mplayer:
     print("Error: Mplayer required !")
     sys.exit()
 
-config = ["# configuration file for alarm\n\n",
-          "[Day]\n",
-          "# Choose 'today' if you do not want to regulate daily day.\n",
-          "DAY=today\n\n",
-          "[Alarm Time]\n",
-          "# Constant alarm time.\n",
-          "ALARM_TIME=HH:MM\n\n",
-          "[Alarm Attempts]\n",
-          "# Select number for attempts.\n",
-          "ATTEMPTS=5\n\n",
-          "[Path]\n",
-          "# Path statements sound files.\n",
-          "SONG=/path/to/song.mp3"]
+configuration = [
+    "# configuration file for alarm\n\n",
+    "[Day]\n",
+    "# Choose 'today' if you do not want to regulate daily day.\n",
+    "DAY=today\n\n",
+    "[Alarm Time]\n",
+    "# Constant alarm time.\n",
+    "ALARM_TIME=HH:MM\n\n",
+    "[Alarm Attempts]\n",
+    "# Select number for attempts.\n",
+    "ATTEMPTS=5\n\n",
+    "[Path]\n",
+    "# Path statements sound files.\n",
+    "SONG=/path/to/song.mp3"
+]
 
 HOME = os.getenv("HOME") + "/"
 alarm_config_dir = ".alarm"
@@ -66,7 +68,7 @@ if not os.path.exists(HOME + alarm_config_dir):
     os.mkdir(HOME + alarm_config_dir)
 if not os.path.isfile(alarm_config):
     with open(alarm_config, "w") as conf:
-        for line in config:
+        for line in configuration:
             conf.write(line)
         conf.close()
 
@@ -245,20 +247,27 @@ class ALARM(object):
         return paint[color]
 
 
-class ArgsView:
+class Args:
     '''
         Arguments view
     '''
-    arguments = [
-        "usage: alarm [-h] [-v]",
-        "  [-s] <day> <alarm time> <song>\n",
-        "optional arguments",
-        "  -h, --help       show this help message and exit",
-        "  -v, --version    print version and exit",
-        "  -s, --set        set alarm day, time and sound\n",
-        "  --config         use config file\n",
-        "example: alarm -s 21 06:00 /path/to/song.mp3"
-    ]
+    def __init__(self):
+        pass
+
+    def view(self):
+
+        arguments = [
+            "usage: alarm [-h] [-v]",
+            "  [-s] <day> <alarm time> <song>\n",
+            "optional arguments",
+            "  -h, --help       show this help message and exit",
+            "  -v, --version    print version and exit",
+            "  -s, --set        set alarm day, time and sound\n",
+            "  --config         use config file\n",
+            "example: alarm -s 21 06:00 /path/to/song.mp3"
+        ]
+        for line in arguments:
+            print(line)
 
 
 def main():
@@ -267,8 +276,7 @@ def main():
     if len(args) == 0:
         print("try alarm --help")
     elif len(args) == 1 and args[0] == "-h" or args[0] == "--help":
-        for line in ArgsView.arguments:
-            print(line)
+        Args().view()
     elif len(args) == 1 and args[0] == "-v" or args[0] == "--version":
         print("Version : %s" % __version__)
     elif (len(args) == 4 and args[0] == "-s" or len(args) == 4 and
