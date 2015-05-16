@@ -1,10 +1,21 @@
-.. image:: https://badge.fury.io/py/alarm.png
-    :target: http://badge.fury.io/py/alarm
-.. image:: https://pypip.in/d/alarm/badge.png
+.. image:: https://img.shields.io/github/release/dslackw/alarm.svg
+    :target: https://github.com/dslackw/alarm/releases
+.. image:: https://travis-ci.org/dslackw/alarm.svg?branch=master
+    :target: https://travis-ci.org/dslackw/alarm
+.. image:: https://landscape.io/github/dslackw/alarm/master/landscape.png
+    :target: https://landscape.io/github/dslackw/alarm/master
+.. image:: https://img.shields.io/codacy/ea3c2619e1124874a7d53079092dc956.svg
+    :target: https://www.codacy.com/public/dzlatanidis/alarm/dashboard
+.. image:: https://img.shields.io/pypi/dm/alarm.svg
     :target: https://pypi.python.org/pypi/alarm
-.. image:: https://pypip.in/license/alarm/badge.png
-    :target: https://pypi.python.org/pypi/alarm
-
+.. image:: https://img.shields.io/badge/license-GPLv3-blue.svg
+    :target: https://github.com/dslackw/alarm
+.. image:: https://img.shields.io/github/stars/dslackw/alarm.svg
+    :target: https://github.com/dslackw/alarm
+.. image:: https://img.shields.io/github/forks/dslackw/alarm.svg
+    :target: https://github.com/dslackw/alarm
+.. image:: https://img.shields.io/github/issues/dslackw/alarm.svg
+    :target: https://github.com/dslackw/alarm/issues
 
 .. contents:: Table of Contents:
 
