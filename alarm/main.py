@@ -137,18 +137,15 @@ class ALARM(object):
             self.alarm_time = [self.alarm_hour, self.alarm_minutes]
             self.RUN_ALARM = False
 
-    def start(self):
+    def errors(self):
         '''
-        All the work going on here. To the Authority the right day and time
-        format and finding the correct path of the file. The Application
-        requires Mplayer to play the alarm sound. Please read which sounds
-        are supported in page:
-        http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
+        Check for usage errors
         '''
         try:
-            now = datetime.datetime.now()
+            self.now = datetime.datetime.now()
             if int(self.alarm_day) > calendar.monthrange(
-                    now.year, now.month)[1] or int(self.alarm_day) < 1:
+                    self.now.year, self.now.month)[1] or int(
+                        self.alarm_day) < 1:
                 print("Error: day out of range")
                 self.RUN_ALARM = False
             # compare alarm time with alarm pattern
@@ -172,9 +169,19 @@ class ALARM(object):
         if not os.path.isfile(self.song):
             print("Error: song file does not exist")
             self.RUN_ALARM = False
+
+    def start(self):
+        '''
+        All the work going on here. To the Authority the right day and time
+        format and finding the correct path of the file. The Application
+        requires Mplayer to play the alarm sound. Please read which sounds
+        are supported in page:
+        http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
+        '''
+        self.errors()
         try:
             alarm_day_name = calendar.day_name[calendar.weekday(
-                now.year, now.month, int(self.alarm_day))]
+                self.now.year, self.now.month, int(self.alarm_day))]
         except ValueError:
             pass
         self.alarm_time.insert(0, self.alarm_day)
