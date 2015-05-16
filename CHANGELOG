@@ -1,8 +1,10 @@
-Version 1.8
+Version 2.0
 16/05/2015
 
 [Updated] - Fix time pattern.
           - Fix python package.
+          - Fix code style.
+          - Fix error messages.
 
 Version 1.7
 03/03/2015
