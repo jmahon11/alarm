@@ -30,7 +30,7 @@ import calendar
 
 __all__ = "alarm"
 __author__ = "dslackw"
-__version_info__ = (1, 7)
+__version_info__ = (1, 8)
 __version__ = "{0}.{1}".format(*__version_info__)
 __license__ = "GNU General Public License v3 (GPLv3)"
 __email__ = "d.zlatanidis@gmail.com"
@@ -47,16 +47,16 @@ if not _found_mplayer:
 config = ["# configuration file for alarm\n\n",
           "[Day]\n",
           "# Choose 'today' if you do not want to regulate daily day.\n",
-          "# DAY=today\n\n",
+          "DAY=today\n\n",
           "[Alarm Time]\n",
           "# Constant alarm time.\n",
-          "# ALARM_TIME=HH:MM\n\n",
+          "ALARM_TIME=HH:MM\n\n",
           "[Alarm Attempts]\n",
           "# Select number for attempts.\n",
-          "# ATTEMPTS=5\n\n",
+          "ATTEMPTS=5\n\n",
           "[Path]\n",
           "# Path statements sound files.\n",
-          "# SONG=/path/to/song.mp3"]
+          "SONG=/path/to/song.mp3"]
 
 HOME = os.getenv("HOME") + "/"
 alarm_config_dir = ".alarm"
@@ -168,7 +168,7 @@ class ALARM(object):
             print("Usage '%s'" % ":".join(self.alarm_pattern))
             self.RUN_ALARM = False
         if not os.path.isfile(self.song):
-            print("Error: the file does not exist")
+            print("Error: song file does not exist")
             self.RUN_ALARM = False
         try:
             alarm_day_name = calendar.day_name[calendar.weekday(
