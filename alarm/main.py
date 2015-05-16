@@ -184,7 +184,7 @@ class ALARM(object):
             print("+" + "=" * 78 + "+")
             print("| Alarm set at : %s %s" % (
                   alarm_day_name, self.alarm_time[3:]) + " " * (
-                  61-len(alarm_day_name + self.alarm_time[2:])) + "|")
+                  62-len(alarm_day_name + self.alarm_time[2:])) + "|")
             print("| Sound file : %s" % self.song + " " * (64-len(
                 self.song)) + "|")
             print("| Time : " + " " * 70 + "|")
