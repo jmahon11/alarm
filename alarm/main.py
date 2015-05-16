@@ -248,9 +248,7 @@ class ALARM(object):
 
 
 class Args:
-    '''
-        Arguments view
-    '''
+
     def __init__(self):
         pass
 
