@@ -26,7 +26,10 @@ try:
 except ImportError:
     from distutils.core import setup
 
-from alarm import __version__, __email__
+from alarm.main import (
+    __version__,
+    __email__
+)
 
 setup(
     name="alarm",
