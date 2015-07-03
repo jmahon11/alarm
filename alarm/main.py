@@ -30,7 +30,7 @@ import calendar
 
 __all__ = "alarm"
 __author__ = "dslackw"
-__version_info__ = (2, 0)
+__version_info__ = (2, 1)
 __version__ = "{0}.{1}".format(*__version_info__)
 __license__ = "GNU General Public License v3 (GPLv3)"
 __email__ = "d.zlatanidis@gmail.com"
@@ -74,10 +74,10 @@ if not os.path.isfile(alarm_config):
 
 
 def config():
-    '''
+    """
         Reading config file in $HOME directory
         /home/user/.alarm/config
-    '''
+    """
     alarm_day = alarm_time = alarm_attempts = song = []
     for line in open(alarm_config, "r"):
         line = line.lstrip()
@@ -109,9 +109,9 @@ class MplayerNotInstalledException(Exception):
 
 
 class ALARM(object):
-    '''
+    """
         CLI Alarm Clock
-    '''
+    """
     def __init__(self, alarm_day, alarm_time, alarm_attempts, song):
 
         self.wakeup = ["__        __    _          _   _         _ ",
@@ -138,9 +138,9 @@ class ALARM(object):
             self.RUN_ALARM = False
 
     def errors(self):
-        '''
+        """
         Check for usage errors
-        '''
+        """
         try:
             self.now = datetime.datetime.now()
             if len(self.alarm_day) < 2 or len(self.alarm_day) > 2:
@@ -175,13 +175,13 @@ class ALARM(object):
             self.RUN_ALARM = False
 
     def start(self):
-        '''
+        """
         All the work going on here. To the Authority the right day and time
         format and finding the correct path of the file. The Application
         requires Mplayer to play the alarm sound. Please read which sounds
         are supported in page:
         http://web.njit.edu/all_topics/Prog_Lang_Docs/html/mplayer/formats.html
-        '''
+        """
         self.errors()
         try:
             alarm_day_name = calendar.day_name[calendar.weekday(
@@ -239,17 +239,17 @@ class ALARM(object):
                 self.RUN_ALARM = False
 
     def position(self, x, y, text):
-        '''
+        """
             ANSI Escape sequences
             http://ascii-table.com/ansi-escape-sequences.php
-        '''
+        """
         sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (x, y, text))
         sys.stdout.flush()
 
     def color(self, color):
-        '''
+        """
             Print foreground colors
-        '''
+        """
         paint = {
             "red": "\x1b[31m",
             "green": "\x1b[32m",
@@ -264,19 +264,18 @@ class Args(object):
         pass
 
     def view(self):
+        """Usage: alarm [OPTIONS] <day> <alarm time> <song>
 
-        arguments = [
-            "usage: alarm [-h] [-v]",
-            "  [-s] <day> <alarm time> <song>\n",
-            "optional arguments",
-            "  -h, --help       show this help message and exit",
-            "  -v, --version    print version and exit",
-            "  -s, --set        set alarm day, time and sound\n",
-            "  --config         use config file\n",
-            "example: alarm -s 21 06:00 /path/to/song.mp3"
-        ]
-        for line in arguments:
-            print(line)
+Optional arguments
+  -h, --help       show this help message and exit
+  -v, --version    print version and exit
+  -s, --set        set alarm day, time and sound
+
+  --config         use config file
+
+  Example: alarm -s 21 06:00 /path/to/song.mp3
+  """
+        print(self.view.__doc__)
 
 
 def main():
