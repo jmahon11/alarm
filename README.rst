@@ -130,7 +130,7 @@ Example:
 
     Attempt 2
 
-Use config file in $HOME/.ararm/config:
+Use config file in $HOME/.alarm/config:
 
 .. code-block:: bash
 
