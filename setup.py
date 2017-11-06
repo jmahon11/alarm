@@ -3,7 +3,7 @@
 
 # setup.py file is part of alarm.
 
-# Copyright 2014 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
+# Copyright 2014-2017 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
 # All rights reserved.
 
 # Utility for easy management packages in Slackware
