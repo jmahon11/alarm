@@ -144,7 +144,7 @@ class ALARM(object):
         try:
             self.now = datetime.datetime.now()
             if len(self.alarm_day) < 2 or len(self.alarm_day) > 2:
-                print("error: day: usage 'DD' like '0%s' no '%s'" % (
+                print("error: day: usage 'DD' such us '0%s' not '%s'" % (
                     self.alarm_day, self.alarm_day))
                 self.RUN_ALARM = False
             if int(self.alarm_day) > calendar.monthrange(
