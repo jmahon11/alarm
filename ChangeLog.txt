@@ -1,3 +1,7 @@
+2.2 - 06/11/2017
+Fixed:
+-  Alarm doesn't go off on certain dates #2
+
 2.1 - 03/07/2015
 Updated: 
 - Help message
