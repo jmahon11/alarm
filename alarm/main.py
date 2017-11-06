@@ -210,8 +210,8 @@ class ALARM(object):
                         "green") + start_time[3:] + self.color("endc"))
                     time.sleep(1)
                     begin = start_time[:-3]
-                    if start_time[0] == '0':
-                        begin = start_time[1:-3]
+                    # if start_time[0] == '0':
+                    #    begin = start_time[1:-3]
                     if begin == self.alarm_time:
                         self.position(6, 10, self.color(
                             "red") + start_time[3:-3] + self.color(
