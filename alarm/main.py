@@ -264,7 +264,7 @@ class Args(object):
         pass
 
     def view(self):
-        """Usage: alarm [OPTIONS] <day> <alarm time> <song>
+        """Usage: alarm [OPTIONS] <day> <alarm_time> <song>
 
 Optional arguments
   -h, --help       show this help message and exit
