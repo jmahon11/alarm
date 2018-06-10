@@ -1,22 +1,3 @@
-.. image:: https://img.shields.io/github/release/dslackw/alarm.svg
-    :target: https://github.com/dslackw/alarm/releases
-.. image:: https://travis-ci.org/dslackw/alarm.svg?branch=master
-    :target: https://travis-ci.org/dslackw/alarm
-.. image:: https://landscape.io/github/dslackw/alarm/master/landscape.png
-    :target: https://landscape.io/github/dslackw/alarm/master
-.. image:: https://img.shields.io/codacy/22fbb1e64acc45a78de3c86233d88d9a.svg
-    :target: https://www.codacy.com/public/dzlatanidis/alarm/dashboard
-.. image:: https://img.shields.io/pypi/dm/alarm.svg
-    :target: https://pypi.python.org/pypi/alarm
-.. image:: https://img.shields.io/badge/license-GPLv3-blue.svg
-    :target: https://github.com/dslackw/alarm
-.. image:: https://img.shields.io/github/stars/dslackw/alarm.svg
-    :target: https://github.com/dslackw/alarm
-.. image:: https://img.shields.io/github/forks/dslackw/alarm.svg
-    :target: https://github.com/dslackw/alarm
-.. image:: https://img.shields.io/github/issues/dslackw/alarm.svg
-    :target: https://github.com/dslackw/alarm/issues
-
 .. contents:: Table of Contents:
 
 CLI Alarm Clock
