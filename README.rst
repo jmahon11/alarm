@@ -3,8 +3,8 @@
 CLI Alarm Clock
 ===============
 
-.. image:: https://raw.githubusercontent.com/dslackw/images/master/alarm/alarm-clock-icon.png
-    :target: https://github.com/dslackw/alarm
+.. image:: https://gitlab.com/dslackw/images/raw/master/alarm/alarm-clock-icon.png
+    :target: https://gitlab.com/dslackw/alarm
 
 Alarm is command line alarm clock utility written in Python language.
 
@@ -23,9 +23,7 @@ You can create a list and use it as an alarm sound:
     $ cat *.mp3 > playlist.m3u
     $ alarm -s 17 07:05 ~/Music/playlist.m3u
 
-You will find some sounds in folder alarm/sounds
-only GitHub tar archive `alarm-2.1.tar.gz <https://github.com/dslackw/alarm/archive/v2.1.tar.gz>`_ or
-zip archive `alarm-2.1.zip <https://github.com/dslackw/alarm/archive/v2.1.zip>`_.
+You will find some sounds in folder alarm/sounds in the GitLab tar archive.
 Some will make you laugh, have fun !!!
     
 Requirements
@@ -50,7 +48,7 @@ Using `pip <https://pip.pypa.io/en/latest/>`_ :
     $ pip uninstall alarm
    
 
-Get the source 'git clone https://github.com/dslackw/alarm.git'
+Get the source 'git clone https://gitlab.com/dslackw/alarm.git'
 
 .. code-block:: bash
     
