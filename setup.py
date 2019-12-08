@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # setup.py file is part of alarm.
 
-# Copyright 2014-2017 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
+# Copyright 2014-2019 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
 # All rights reserved.
 
 # Utility for easy management packages in Slackware
@@ -37,6 +37,7 @@ setup(
     scripts=["bin/alarm"],
     version=__version__,
     description="CLI Alarm Clock",
+    long_description=open("README.rst").read(),
     keywords=["alarm", "clock", "CLI", "terminal"],
     author="dslackw",
     author_email=__email__,
@@ -50,18 +51,11 @@ setup(
         "Operating System :: POSIX :: Linux",
         "Operating System :: Unix",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2.5",
-        "Programming Language :: Python :: 2.6",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.0",
-        "Programming Language :: Python :: 3.1",
-        "Programming Language :: Python :: 3.2",
-        "Programming Language :: Python :: 3.3",
-        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.7",
         "Topic :: Multimedia",
         "Topic :: Multimedia :: Sound/Audio :: Players",
         "Topic :: Utilities",
         ],
-    long_description=open("README.rst").read()
+    python_requires=">=3.7"
 )

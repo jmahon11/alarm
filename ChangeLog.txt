@@ -1,3 +1,7 @@
+2.3 - 08/12/2019
+Updated:
+- for python3 compatibility
+
 2.2 - 06/11/2017
 Fixed:
 - Alarm doesn't go off on certain dates #2
