@@ -11,9 +11,10 @@ Alarm is command line alarm clock utility written in Python language.
 How works
 ---------
 
-When the date and time coincides with the current the alarm starts 
-playing the sound is selected for five consecutive times. You can 
-pause the alarm by pressing 'p' or 'space' is an attempt to cancel the 
+When the date and time coincides with the current date and time, 
+the alarm starts playing the sound is selected for five consecutive times. 
+
+You can pause the alarm by pressing 'p' or 'space' is an attempt to cancel the 
 'q' or 'ESC'. Change the volume of the alarm by pressing '*' or '/'.
 
 You can create a list and use it as an alarm sound:
