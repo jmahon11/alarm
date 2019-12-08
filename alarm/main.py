@@ -3,7 +3,7 @@
 
 # alarm.py
 
-# Copyright 2014-2017 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
+# Copyright 2014-2019 Dimitris Zlatanidis <d.zlatanidis@gmail.com>
 # All rights reserved.
 
 # CLI Alarm Clock
@@ -21,6 +21,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+
 import os
 import sys
 import time
@@ -35,14 +36,17 @@ __version__ = "{0}.{1}".format(*__version_info__)
 __license__ = "GNU General Public License v3 (GPLv3)"
 __email__ = "d.zlatanidis@gmail.com"
 
-# check if Mplayer installed
+
+# check if Mplayer is installed
 _found_mplayer = None
 for dr in os.environ["PATH"].split(os.pathsep):
     if os.path.exists(os.path.join(dr, "mplayer")):
         _found_mplayer = dr
+
 if not _found_mplayer:
     print("Error: Mplayer required !")
     sys.exit()
+
 
 configuration = [
     "# configuration file for alarm\n\n",
@@ -60,10 +64,12 @@ configuration = [
     "SONG=/path/to/song.mp3"
 ]
 
+
 HOME = os.getenv("HOME") + "/"
 alarm_config_dir = ".alarm"
 config_file = "config"
 alarm_config = ("%s%s/%s" % (HOME, alarm_config_dir, config_file))
+
 if not os.path.exists(HOME + alarm_config_dir):
     os.mkdir(HOME + alarm_config_dir)
 if not os.path.isfile(alarm_config):
@@ -75,7 +81,7 @@ if not os.path.isfile(alarm_config):
 
 def config():
     """
-        Reading config file in $HOME directory
+        Reading the config file in $HOME directory
         /home/user/.alarm/config
     """
     alarm_day = alarm_time = alarm_attempts = song = []
@@ -278,6 +284,7 @@ Optional arguments
 
 
 def main():
+
     args = sys.argv
     args.pop(0)
     if len(args) == 0:
