@@ -243,8 +243,7 @@ class ALARM(object):
             ANSI Escape sequences
             http://ascii-table.com/ansi-escape-sequences.php
         """
-        sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (x, y, text))
-        sys.stdout.flush()
+        print("\x1b7\x1b[%d;%df%s\x1b8" % (x, y, text), end="", flush=True)
 
     def color(self, color):
         """
