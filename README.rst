@@ -53,7 +53,7 @@ Get the source 'git clone https://gitlab.com/dslackw/alarm.git'
 
 .. code-block:: bash
     
-    $ python setup.py install
+    $ python3 setup.py install
 
 
 Command Line Tool Usage
